@@ -1,0 +1,221 @@
+from math import *
+print("ES302 - Numerical Analysis Project")
+print("Written by: Mohamed Gabriel , Student Number: 27923 , Instructor: Elmahdi Elsanaani")
+print("Using this script you will be able to find roots using open and closed brackets methods. ")
+print("Which type of methods will you be using today? ")
+print("1 - Closed \n2 - Open ")
+Main_operation = float(input("Enter the number of the operation please: "))
+
+if Main_operation == 1:
+    print("Which closed operation would you like to use?")
+    print("1 - Bisection \n2 - False Position ")
+    closed_operation = float(input("Enter the number of the operation please: "))
+    if closed_operation == 1:
+        print("Bisection Method calculator")
+
+
+        def f(x):
+            return eval("lambda x:" + input("Enter your function of (x) here please:  "))
+
+
+        def bisection(xl, xu, es):
+            i = 1
+            xr = 0
+            ea = es + 1
+
+            check = True
+            while check:
+                xr0 = xr
+                xr = (xl + xu) / 2
+
+                if xr != 0:
+                    ea = abs((xr - xr0) / xr) * 100
+
+                print('Iteration: ' + str(i) + ' xr= ' + str(xr) + ' Relative error (ea)= ' + str(ea))
+
+                i = i + 1
+
+
+                if f(xl) * f(xr) < 0:
+                    xu = xr
+                elif f(xl) * f(xr) > 0:
+                    xl = xr
+                else:
+                    ea = 0
+                check = abs(ea > es)
+
+                print("The Value of Xr (Root) = " + str(xr))
+
+
+        x = 1
+        f = f(x)
+        xl = float(input('Enter the value of xl: '))
+        xu = float(input('Enter the value of xu: '))
+        es = float(input('Enter the value of the selected error: '))
+
+        if f(xl) * f(xu) > 0.0:
+            print('the values xl and xu doesnt bracket the root')
+            print('Enter another values for xl and xu please..')
+        else:
+            bisection(xl, xu, es)
+
+    elif closed_operation == 2:
+        print("False Position Method calculator")
+
+
+        def f(x):
+            return eval("lambda x:" + input("Please Enter your function of (x) here please:  "))
+
+
+        def falsePosition(xl, xu, es):
+            i = 1
+            xr = 0
+            ea = es + 1
+
+            check = True
+            while check:
+                xr0 = xr
+                xr = xu - (f(xu)*(xl-xu))/((f(xl))-(f(xu)))
+
+                if xr != 0:
+                    ea = abs((xr - xr0) / xr) * 100
+
+                print('Iteration: ' + str(i) + ' xr= ' + str(xr) + ' Relative error (ea)= ' + str(ea))
+
+                i = i + 1
+
+                if f(xl) * f(xr) < 0:
+                    xu = xr
+                elif f(xl) * f(xr) > 0:
+                    xl = xr
+                else:
+                    ea = 0
+                check = abs(ea > es)
+
+                print("The Value of Xr (Root) = " + str(xr))
+
+
+        x = 1
+        f = f(x)
+        xl = float(input('Enter the value of xl: '))
+        xu = float(input('Enter the value of xu: '))
+        es = float(input('Enter the value of the selected error: '))
+
+        if f(xl) * f(xu) > 0.0:
+            print('the values xl and xu doesnt bracket the root')
+            print('Enter another values for xl and xu please..')
+        else:
+            falsePosition(xl, xu, es)
+
+
+
+    else:
+        print("No valid operation was chosen")
+
+if Main_operation == 2:
+    print("Which closed operation would you like to use?")
+    print("1 - Newton Raphson Method \n2 - Secant Method  ")
+    open_operation = float(input("Enter the number of the operation please: "))
+    if open_operation == 1:
+
+        print("Newton Raphson Method calculator")
+
+
+        def f(x):
+            return eval("lambda x:" + input("Please Enter your function of (x) here please:  "))
+
+
+        def g(x):
+            return eval("lambda x:" + input("Please Enter the derivative of the function:  "))
+
+
+        def newtonRaphson(xi, es):
+            i = 1
+
+            ea = es + 1
+
+            check = True
+
+            while check:
+                if g(xi) == 0:
+                    print('Divide by zero error!')
+                    break
+
+                xi0 = xi
+                x1 = xi - f(xi) / g(xi)
+
+                if xi != 0:
+                    ea = abs((xi - xi0) / xi) * 100
+                else:
+                    ea = 0
+
+                print('Iteration: ' + str(i) + ' X' + str(i + 1) + "= " + str(x1) + ' Relative error (ea)= ' + str(ea))
+                xi = x1
+                i = i + 1
+
+
+                check = abs(ea > es)
+
+                print("The Value of X (Root) = " + str(xi))
+
+
+        x = 1
+        f = f(x)
+        x = 2
+        g = g(x)
+        xi = float(input('Enter the value of xi: '))
+        es = float(input('Enter the value of the selected error: '))
+
+        newtonRaphson(xi, es)
+
+    if open_operation == 2:
+        print("Secant Method calculator")
+
+        def f(x):
+            return eval("lambda x:" + input("Please Enter your function of (x) here please:  "))
+
+
+        def secant(xi,xi1,es):
+
+            i = 1
+            ea = es + 1
+            check = True
+            while check:
+                if f(xi) == f(xi1):
+                    print('Divide by zero error!')
+                    break
+
+                x2 = xi - (xi1-xi)*f(xi)/( f(xi1) - f(xi) )
+
+                if xi != 0:
+                    ea = abs((xi-xi1)/xi1)*100
+                else:
+                    ea = 0
+
+                print('Iteration: ' + str(i) + ' X' + str(i+1) + "= " +str(x2) + 'Relative error (ea)= ' + str(ea))
+                xi1 = xi
+                xi = x2
+                i = i + 1
+
+
+
+                check = abs(ea > es)
+
+                print("The Value of X (Root) = " + str(xi))
+
+
+
+
+        x = 1
+        f = f(x)
+        xi = float(input('Enter the value of X(i): '))
+        xi1 = float(input('Enter the value of X(i-1): '))
+        es = float(input('Enter the value of the selected error: '))
+
+
+        secant(xi, xi1, es)
+
+
+
+
+
